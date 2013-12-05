@@ -119,7 +119,7 @@ Shoes.app(title: TITLE, width: 900,resizable: false) do
         end
 
       end   # dialog(...) do
-    end     # animate(...) do |i|
+    end     # animate(...) do
   end
 end
 
