@@ -72,53 +72,54 @@ Shoes.app(title: TITLE, width: 900,resizable: false) do
     p = progress :width => 1.0
     a = animate(5) do |i|
       p.fraction = (i % 100) / 100.0
-      if i > 99
-        a.stop
+      next if i < 100
 
-        # タイピング結果画面
-        dialog(title: TITLE, width: 500, resizable: false) do
-          background white
+      # アニメーション終了
+      a.stop
 
-          # ランダムに円を描く
-          fill rgb(0, 0.6, 0.9, 0.1)
-          stroke rgb(0, 0.6, 0.9)
-          strokewidth 0.25
-          60.times do
-            oval( left:   (-5..self.width).rand,
-                  top:    (-5..self.height).rand,
-                  radius: (25..50).rand)
+      # タイピング結果画面
+      dialog(title: TITLE, width: 500, resizable: false) do
+        background white
+
+        # ランダムに円を描く
+        fill rgb(0, 0.6, 0.9, 0.1)
+        stroke rgb(0, 0.6, 0.9)
+        strokewidth 0.25
+        60.times do
+          oval( left:   (-5..self.width).rand,
+                top:    (-5..self.height).rand,
+                radius: (25..50).rand)
+        end
+
+        stack :margin => 0.1 do
+          score = good * 3
+          ratio = (good.to_f / (good + mistake).to_f) * 100
+          rank = "C"
+          if score >= 360 && ratio >= 99.5
+            rank = "SS"
+          elsif score >= 330 && ratio >= 98
+            rank = "S"
+          elsif score >= 300 && ratio >= 96.5
+            rank = "A"
+          elsif score >= 270 && ratio >= 94
+            rank = "B"
           end
 
-          stack :margin => 0.1 do
-            score = good * 3
-            ratio = (good.to_f / (good + mistake).to_f) * 100
-            rank = "C"
-            if score >= 360 && ratio >= 99.5
-              rank = "SS"
-            elsif score >= 330 && ratio >= 98
-              rank = "S"
-            elsif score >= 300 && ratio >= 96.5
-              rank = "A"
-            elsif score >= 270 && ratio >= 94
-              rank = "B"
-            end
+          subtitle(strong("得点        ：#{score}"),:font => "MS Gothic")
+          subtitle(strong("ランク      ：#{rank}"),:font => "MS Gothic")
+          subtitle(strong("正解タイプ数：#{good}回"),:font => "MS Gothic")
+          subtitle(strong("ミスタイプ数：#{mistake}回"),:font => "MS Gothic")
+          subtitle(strong("正解率      ：#{ratio.round(1)}％"),:font => "MS Gothic")
+        end
 
-            subtitle(strong("得点        ：#{score}"),:font => "MS Gothic")
-            subtitle(strong("ランク      ：#{rank}"),:font => "MS Gothic")
-            subtitle(strong("正解タイプ数：#{good}回"),:font => "MS Gothic")
-            subtitle(strong("ミスタイプ数：#{mistake}回"),:font => "MS Gothic")
-            subtitle(strong("正解率      ：#{ratio.round(1)}％"),:font => "MS Gothic")
-          end
-
-          stack :margin_left => '30%' do
-            button "おしまい" do
-              exit
-            end
+        stack :margin_left => '30%' do
+          button "おしまい" do
+            exit
           end
         end
 
-      end
-    end
+      end   # dialog(...) do
+    end     # animate(...) do |i|
   end
 end
 
