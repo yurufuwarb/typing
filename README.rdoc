@@ -1,17 +1,13 @@
 
 == Overview
 
-This is a typing game using [shoes](http://shoesrb.com).
+This is a typing game using shoes.(http://shoesrb.com)
 
 == Getting Started
-
-* Install Shoes
 
 Please download a package from an official site.
 
  http://shoesrb.com/downloads
-
-* Setting alias
 
 If the *.rb file is given to the executable file of Shoes, it can be made to start from CUI.
 
@@ -21,7 +17,7 @@ However, probably, it will be better for specifying the full path of shoes one b
 
  alias shoes="/Applications/Shoes.app/Contents/MacOS/shoes"
 
-* How to run the yurufuwa typging
+Then, you can start only by executing the following.
 
  shoes typeing.rb
 
